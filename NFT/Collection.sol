@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -19,7 +19,7 @@ contract Collection is ERC721, Ownable, RandomlyAssigned {
 
     /// You’ll need to upload the metadata files on IPFS or any other platform
     /// and follow the metadata standards https://docs.opensea.io/docs/metadata-standards
-    string public baseURI = "ipfs://your-CDI/";
+    string public baseURI = "ipfs://your-CID/";
 
     //salva a quantidade de nfts por address
     mapping(address => uint256) public addressMintedBalance;
