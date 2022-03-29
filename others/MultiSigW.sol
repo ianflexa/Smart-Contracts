@@ -30,10 +30,34 @@ contract MultiSigWallet {
     }
 
     //stored owners addresses
-    address[]public owners;
+    address[] public owners;
     //verify if an address is owner will return true
     mapping(address => bool) public isOwner;
     //the number of requirements needed to execute a transaction
     uint256 public required;
 
+    //stored all the transactions
+    Transaction[] public transactions;
+
+    //stored the approval of each transaction by each owner
+    mapping(uint256 => mapping(address => bool)) public approved;
+
+    /// @notice Instanciate the contract
+    /// @param _owners address of owners of this multiSig
+    /// @param _required number of requireds to execute a transaction
+
+    constructor(address[] memory _owners, uint _required){
+        require(_owners.length > 0, "owerns required");
+        require(_required > 0 && _required <= _owners.length, "invalid required number of owners");
+        for(uint256 i; i < _owners.length; i++) {
+            address owner = _owners[i];
+            require(owner != address(0), "invalid owner");
+            require(!isOwner[owner], "owner is not unique");
+
+            isOwner[owner] = true;
+            owners.push(owner);
+        }
+
+        required = _required;
+    }
 }
